@@ -1,6 +1,4 @@
-/* styles.css */
 
-/* General styles */
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -56,7 +54,7 @@ body {
     background-color: var(--button-hover-bg);
   }
   
-  /* Light mode variables */
+ 
   body.light-mode {
     --display-bg: #f9f9f9;
     --display-color: #000;
@@ -67,7 +65,7 @@ body {
     color: #000;
   }
   
-  /* Dark mode variables */
+
   body.dark-mode {
     --display-bg: #333;
     --display-color: #fff;

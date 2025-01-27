@@ -1,4 +1,4 @@
-// script.js
+
 
 document.getElementById('toggle-theme').addEventListener('click', () => {
     const body = document.body;
