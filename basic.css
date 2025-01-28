@@ -1,0 +1,33 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    height: 80vh;
+    width: auto;
+    background-color: #E8E8E8;
+    padding: 30px 10px; 
+}
+
+.display{
+    height: 10vh;
+    width: 100%;
+    background-color: white;
+    margin-bottom: 30px;
+}
+
+.row{
+
+}
+
+.btns{
+
+}
+
+.btn{
+    /* margin: 10px; */
+    height: 20px;
+    width: 40px;
+}

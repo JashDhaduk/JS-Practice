@@ -216,3 +216,47 @@
 
 // let p = document.querySelectorAll('p')
 // alert(p.innerHTML)
+
+
+// function cook(callback){
+//     console.log("cooking")
+//     setTimeout(() => {
+//         callback();
+//         console.log("ready")
+//         // callback();
+//     }, 2000)
+// }
+
+// cook(() => {
+//     console.log("Eat")
+// })
+// console.log("else")
+
+
+// const cook = new Promise((resolve) => {
+//     setTimeout(() => {
+//         resolve("food")
+//     }, 3000);
+// })
+// cook.then((message) => {
+//     console.log(message);
+//     console.log("eat")
+// })
+
+function fetch(){
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log("data");
+            resolve("success")
+        }, 2000);
+    })
+}
+
+fetch()
+.then((message) => {
+    console.log(message)
+    console.log("next")
+})
+.catch((error) => {
+    console.log("error", error)
+})
