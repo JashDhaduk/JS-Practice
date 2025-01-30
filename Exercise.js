@@ -243,20 +243,37 @@
 //     console.log("eat")
 // })
 
-function fetch(){
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            console.log("data");
-            resolve("success")
-        }, 2000);
-    })
-}
+// function fetch(){
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             console.log("data");
+//             resolve("success")
+//         });
+//     })
+// }
 
-fetch()
-.then((message) => {
-    console.log(message)
-    console.log("next")
-})
-.catch((error) => {
-    console.log("error", error)
-})
+// fetch()
+// .then((message) => {
+//     console.log(message)
+//     console.log("next")
+// })
+// .catch((error) => {
+//     console.log("error", error)
+// })
+
+function reverseNum(num){
+
+    let revNum=0;
+
+    while(num){
+
+        let lastDigit=num%10;
+        num=Math.floor(num/10);
+        revNum=(revNum*10)+lastDigit
+
+    }
+
+    return revNum;
+
+}
+console.log(reverseNum(123));

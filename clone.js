@@ -7,27 +7,27 @@ document.addEventListener("DOMContentLoaded", function () {
     let lastOperation = '';
     let operatorUsed = false;
 
-
-    buttons.forEach((button) => {
+    // Function to handle button clicks
+    buttons.forEach(button => {
         button.addEventListener("click", function () {
             const value = button.textContent.trim();
             handleInput(value);
         });
     });
 
-
+    // Handle keyboard input
     document.addEventListener('keydown', function (event) {
         const key = event.key;
 
-
+        // Handle number keys
         if (key >= '0' && key <= '9') {
             handleInput(key);
         } 
-
+        // Handle operator keys
         else if (key === '+' || key === '-' || key === '*' || key === '/') {
             handleInput(key);
         }
-
+        // Handle special keys
         else if (key === 'Enter') {
             handleInput('=');
         } else if (key === 'Backspace' || key === 'Delete') {
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else if (key === '.') {
             handleInput('.');
         }
-
+        // Handle other custom keys like 'π', 'e', etc.
         else if (key === 'p') {
             handleInput('π');
         } else if (key === 'e') {
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-
+    // Function to handle input (from button click or keyboard press)
     function handleInput(value) {
         if (value === 'C') {
             currentInput = '';
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
             operatorUsed = false;
         } else if (value === '=') {
             try {
-                
+                // Evaluate the expression and handle errors
                 currentInput = evaluateExpression(currentInput);
                 display.value = currentInput;
                 operatorUsed = true;
@@ -87,8 +87,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-
+    // Function to handle evaluation of expression
     function evaluateExpression(expression) {
+        // Replace symbols for proper calculation
         expression = expression.replace(/π/g, Math.PI);
         expression = expression.replace(/e/g, Math.E);
         expression = expression.replace(/×/g, '*');
@@ -103,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-
+    // Function to calculate factorial (for n!)
     function calculateFactorial(input) {
         const num = parseInt(input);
         if (isNaN(num) || num < 0) {
@@ -116,13 +117,13 @@ document.addEventListener("DOMContentLoaded", function () {
         return factorial.toString();
     }
 
-
+    // Handle error cases
     window.addEventListener("error", function (e) {
         display.value = "Error";
         currentInput = '';
     });
 
-
+    // Handle input value in display
     function updateDisplay(value) {
         if (value.length > 15) {
             display.value = 'Overflow';
@@ -132,16 +133,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 });
-
-document.getElementById('toggle-theme').addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    document.body.classList.toggle('light-mode');
-
-    const theme = document.body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode';
-    localStorage.setItem('theme', theme);
-});
-
-window.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('theme') || 'light-mode';
-    document.body.classList.add(savedTheme);
-  });

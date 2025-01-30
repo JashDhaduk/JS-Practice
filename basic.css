@@ -11,15 +11,15 @@ body {
     min-width: 100vw;
     min-height: 100vh;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #f0f0f0; /* Light background for the body */
+    background-color: var(--background-color) 
 }
 
 .container {
-    background-color: #E8E8E8;
+    background-color: var(--container-bg);
     padding: 20px;
-    max-width: 500px; /* Limit the max width */
+    max-width: 500px; 
     width: 100%;
-    border-radius: 10px; /* Rounded corners for container */
+    border-radius: 10px;
 }
 
 .head {
@@ -46,7 +46,8 @@ body {
 .display {
     height: 70px;
     width: 100%;
-    background-color: white;
+    background-color: var(--button-bg);
+    color: var(--display-color);
     margin-bottom: 30px;
     border: none;
     text-align: right;
@@ -74,14 +75,14 @@ body {
     text-align: center;
     font-size: 1rem;
     border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    background-color: var(--button-bg);
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.5s ease;
 }
 
 .btn:hover {
-    background-color: #ddd;
+    background-color: var(--button-hover-bg);
 }
 
 .num {
@@ -123,3 +124,27 @@ body {
         margin-bottom: 5px; 
     }
 }
+
+body.light-mode {
+    --display-bg: #f9f9f9;
+    --display-color: #000;
+    --button-bg: #fff;
+    --button-color: #000;
+    --button-hover-bg: #e0e0e0;
+    --container-bg : #e3e3e3;
+    --background-color: #ffffff;
+    color: #000;
+  }
+  
+
+  body.dark-mode {
+    --display-bg: #333;
+    --display-color: #fff;
+    --button-bg: #555;
+    --button-color: #fff;
+    --button-hover-bg: #444;
+    --container-bg : #828282;
+    --background-color: #111111;
+    color: #fff;
+  }
+  

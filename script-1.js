@@ -117,10 +117,29 @@
 // console.log(j>k ? (j-k) : (k-j));  // ternay operator - executes the if-else in one line
 
 
-let a = null;
+// let a = null;
 
-{
-  let a = 10;
-}
+// {
+//   let a = 10;
+// }
 
-console.log(a)
+// console.log(a)
+
+// document.addEventListener("DOMContentLoaded", () => {
+//   const button = document.querySelector(".btn");
+//   button.addEventListener("click", () => {
+//     alert("clicked")
+//   })
+// })
+
+// let c = ''
+// alert(typeof(c))
+
+let a = 1;
+let b = 2;
+let min = [b,a][+(a < b)]
+console.log(min)
+
+(a<b)=>true
+Number.parseInt(true)=>0
+[2,1][1]
