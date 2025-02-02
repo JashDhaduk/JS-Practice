@@ -2,11 +2,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const display = document.querySelector(".display");
     const buttons = document.querySelectorAll(".btn");
     const equalButton = document.querySelector(".equal");
+    const historyButton = document.querySelector('.history-button');
+    const historySidebar = document.querySelector('.history-sidebar');
+    const closeHistoryButton = document.querySelector('.close-history');
+    const historyContent = document.querySelector('.history-content');
 
     let currentInput = '';
     let lastOperation = '';
     let operatorUsed = false;
+    let calculationHistory = [];
 
+    historyButton.addEventListener('click', () => {
+        historySidebar.classList.add('active');
+    });
+    
+    closeHistoryButton.addEventListener('click', () => {
+        historySidebar.classList.remove('active');
+    });
 
     buttons.forEach((button) => {
         button.addEventListener("click", function () {
@@ -57,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
             operatorUsed = false;
         } else if (value === '=') {
             try {
-                
+                addToHistory(currentInput, result);
                 currentInput = evaluateExpression(currentInput);
                 display.value = currentInput;
                 operatorUsed = true;
@@ -131,7 +143,23 @@ document.addEventListener("DOMContentLoaded", function () {
             display.value = value || '0';
         }
     }
+
+    function addToHistory(expression, result) {
+        calculationHistory.unshift({ expression, result });
+        if (calculationHistory.length > 10) calculationHistory.pop();
+        
+        historyContent.innerHTML = calculationHistory
+            .map(entry => `
+                <div class="history-entry">
+                    <div>${entry.expression}</div>
+                    <div>= ${entry.result}</div>
+                </div>
+            `)
+            .join('');
+    }
 });
+
+
 
 document.getElementById('toggle-theme').addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');

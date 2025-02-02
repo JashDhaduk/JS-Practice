@@ -18,20 +18,20 @@
             <button id="toggle-theme">Theme</button>
         </div>
         <!-- <div class="display"> -->
-        <input type="text" placeholder="0" class="display">
+        <input type="text" placeholder="0" class="display" >
         <!-- </div> -->
         <div class="btns">
             <div class="row">
-                <button class="btn">2<sup>nd</sup></button>
-                <button class="btn">π</button>
-                <button class="btn">e</button>
+                <button class="btn">Sin</button>
+                <button class="btn">Cos</button>
+                <button class="btn">Tan</button>
                 <button class="btn">C</button>
                 <button class="btn">⌫</button>
             </div>
             <div class="row">
                 <button class="btn">x<sup>2</sup></button>
-                <button class="btn"><sup>1</sup>/<sub>x</sub></button>
-                <button class="btn">|x|</button>
+                <button class="btn">π</button>
+                <button class="btn">e</button>
                 <button class="btn">exp</button>
                 <button class="btn">mod</button>
             </div>
@@ -39,14 +39,14 @@
                 <button class="btn">√x</button>
                 <button class="btn">(</button>
                 <button class="btn">)</button>
-                <button class="btn">n!</button>
+                <button class="btn factorial">n!</button>
                 <button class="btn">÷</button>
             </div>
             <div class="row">
                 <button class="btn">x<sup>y</sup></button>
                 <button class="btn num">7</button>
                 <button class="btn num">8</button>
-                <button class="btn num  ">9</button>
+                <button class="btn num">9</button>
                 <button class="btn">x</button>
             </div>
             <div class="row">
@@ -72,7 +72,14 @@
             </div>
         </div>
     </div>
-    <script src="basic.js"></script>
+    <div class="history-panel">
+        <div class="history-header">
+            <h3>History</h3>    
+            <button class="close-history">&times;</button>
+        </div>
+        <div class="history-content"></div>
+    </div>
+    <script type="module" src="basic.js"></script>
 </body>
 </html>
 

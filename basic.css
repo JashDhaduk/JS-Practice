@@ -20,6 +20,7 @@ body {
     max-width: 500px; 
     width: 100%;
     border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .head {
@@ -43,6 +44,52 @@ body {
     background-color: #45a049;
 }
 
+/* History Panel Styles */
+.history-panel {
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 350px;
+    height: 100%;
+    background-color: var(--history-bg);
+    box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    color: var(--text-color);
+}
+
+.history-panel.active {
+    right: 0;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.close-history {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.history-content {
+    padding: 20px;
+    overflow-y: auto;
+    height: calc(100% - 70px);
+}
+
+.history-item {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
 .display {
     height: 70px;
     width: 100%;
@@ -54,6 +101,7 @@ body {
     font-size: 2.5rem;
     padding: 0 15px;
     border-radius: 5px;
+    text-overflow: clip;
 }
 
 /* Buttons */
@@ -73,11 +121,12 @@ body {
     flex: 1;
     padding: 15px;
     text-align: center;
-    font-size: 1rem;
+    font-size: 1rem;    
     border: 1px solid #ccc;
     background-color: var(--button-bg);
     cursor: pointer;
     border-radius: 5px;
+    color: var(--color);
     transition: background-color 0.5s ease;
 }
 
@@ -88,6 +137,7 @@ body {
 .num {
     background-color: #d1cfcf;
     font-size: 1.5rem;
+    color: #000
 }
 
 .equal{
@@ -133,7 +183,10 @@ body.light-mode {
     --button-hover-bg: #e0e0e0;
     --container-bg : #e3e3e3;
     --background-color: #ffffff;
-    color: #000;
+    --color: #000;
+    --history-bg: #ffffff;
+    --text-color: #1a1a1a;
+    --border-color: #e0e0e0;
   }
   
 
@@ -145,6 +198,9 @@ body.light-mode {
     --button-hover-bg: #444;
     --container-bg : #828282;
     --background-color: #111111;
-    color: #fff;
+    --color: #fff;
+    --history-bg: #2d2d2d;
+    --text-color: #ffffff;
+    --border-color: #404040;    
   }
   
