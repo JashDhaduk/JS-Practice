@@ -1,78 +1,260 @@
+/* Universal Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    transition: background-color 0.3s, color 0.3s;
-  }
-  
-  .calculator {
-    width: 300px;
+    min-width: 100vw;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--background-color);
+    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for body */
+}
+
+/* Container */
+.container {
+    background-color: var(--container-bg);
     padding: 20px;
+    max-width: 500px;
+    width: 100%;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for container */
+}
+
+/* Header */
+.head {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .display {
-    width: 100%;
-    height: 50px;
-    background-color: var(--display-bg);
-    color: var(--display-color);
-    font-size: 1.5rem;
-    text-align: right;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    width: 100%;
-  }
-  
-  button {
-    height: 50px;
-    background-color: var(--button-bg);
-    color: var(--button-color);
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.history-button, #toggle-theme {
+    background-color: #4CAF50;
+    color: white;
     border: none;
+    padding: 10px 15px;
     border-radius: 5px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  button:hover {
+}
+
+.history-button:hover, #toggle-theme:hover {
+    background-color: #45a049;
+}
+
+/* History Panel Styles */
+.history-panel {
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 350px;
+    height: 100%;
+    background-color: var(--history-bg);
+    box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease-in-out, background-color 0.5s ease, color 0.5s ease; /* Smooth transition for history panel */
+    z-index: 1000;
+    padding-top: 20px;
+}
+
+.history-panel.active {
+    right: 0;
+}
+
+.history-content {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* History Entries */
+.history-entry {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.history-entry:nth-child(odd) {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.history-entry:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.history-expression {
+    font-weight: bold;
+    color: #FFD700; /* Gold color */
+}
+
+.history-result {
+    font-style: italic;
+    color: #4CAF50; /* Green color */
+    margin-top: 5px;
+}
+
+.history-entry:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Display */
+.display {
+    height: 70px;
+    width: 100%;
+    background-color: var(--button-bg);
+    color: var(--display-color);
+    margin-bottom: 30px;
+    border: none;
+    text-align: right;
+    font-size: 2.5rem;
+    padding: 0 15px;
+    border-radius: 5px;
+    overflow: hidden;
+    text-overflow: clip;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Button Grid */
+.btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Button Styling */
+.btn {
+    flex: 1;
+    padding: 15px;
+    text-align: center;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    background-color: var(--button-bg);
+    cursor: pointer;
+    border-radius: 5px;
+    color: var(--color);
+    transition: background-color 0.5s ease;
+}
+
+.btn:hover {
     background-color: var(--button-hover-bg);
-  }
-  
- 
-  body.light-mode {
+}
+
+.num {
+    background-color: #d1cfcf;
+    font-size: 1.5rem;
+    color: #000;
+}
+
+.equal {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.equal:hover {
+    background-color: #45a049;
+}
+
+/* Responsive Design for Buttons */
+@media (max-width: 600px) {
+    /* Reduce button columns to 3 on small screens */
+    .btn {
+        flex: 1 0 30%; /* 3 items per row */
+        font-size: 1rem;
+    }
+
+    .container {
+        padding: 15px;
+        max-width: 100%;
+    }
+
+    .display {
+        font-size: 2rem;
+    }
+
+    .row {
+        flex-direction: row;
+        align-items: stretch;
+    }
+
+    .btn {
+        margin-bottom: 5px;
+    }
+
+    /* Reduce History Panel Width */
+    .history-panel {
+        width: 300px; /* Smaller panel */
+    }
+}
+
+@media (max-width: 400px) {
+    /* Reduce button columns to 2 on very small screens */
+    .btn {
+        flex: 1 0 45%; /* 2 items per row */
+        font-size: 0.9rem;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .display {
+        font-size: 1.8rem;
+    }
+
+    /* Further reduce History Panel Width */
+    .history-panel {
+        width: 250px; /* Even smaller panel */
+    }
+}
+
+/* Light Mode Styles */
+body.light-mode {
     --display-bg: #f9f9f9;
     --display-color: #000;
     --button-bg: #fff;
     --button-color: #000;
     --button-hover-bg: #e0e0e0;
-    background-color: #ffffff;
-    color: #000;
-  }
-  
+    --container-bg: #e3e3e3;
+    --background-color: #ffffff;
+    --color: #000;
+    --history-bg: #ffffff;
+    --text-color: #1a1a1a;
+    --border-color: #e0e0e0;
+}
 
-  body.dark-mode {
+/* Dark Mode Styles */
+body.dark-mode {
     --display-bg: #333;
     --display-color: #fff;
     --button-bg: #555;
     --button-color: #fff;
     --button-hover-bg: #444;
-    background-color: #121212;
-    color: #fff;
-  }
-  
+    --container-bg: #828282;
+    --background-color: #111111;
+    --color: #fff;
+    --history-bg: #2d2d2d;
+    --text-color: #ffffff;
+    --border-color: #404040;
+}
+
+/* Smooth theme toggle button */
+#toggle-theme {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#toggle-theme:active {
+    transform: scale(0.95);
+}

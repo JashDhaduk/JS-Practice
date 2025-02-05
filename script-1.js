@@ -135,11 +135,90 @@
 // let c = ''
 // alert(typeof(c))
 
-let a = 1;
-let b = 2;
-let min = [b,a][+(a < b)]
-console.log(min)
+// let a = 1;
+// let b = 2;
+// let min = [b,a][+(a < b)]
+// console.log(min)
 
-(a<b)=>true
-Number.parseInt(true)=>0
-[2,1][1]
+// (a<b)=>true
+// Number.parseInt(true)=>0
+// [2,1][1]
+
+// let a = [1,2,3,4]
+// let value = 3;
+// console.log(a.includes(2))
+// a.push(5)
+// console.log(a)
+
+// // array :- push(), pul(), includes()
+
+// let c = ''  
+// console.log(typeof(c))
+
+// let f = function ar(){
+//     console.log("jash")
+// }
+// f()
+// console.log(f.name)
+
+// let expression = '8+9'
+// try{
+//     const result = Function('return ' + expression)();
+//     return result.toString()
+// }
+// catch{
+
+// }
+// console.log(result)
+
+// function main(){
+//     console.log('1')
+
+//     setTimeout(() => {
+//         console.log('2')
+
+//         setTimeout(() => {
+//             console.log('5')
+//         })
+//         new Promise(function (r){
+//             console.log('6')
+//             r()
+//         }).then((d) => {console.log(d)})
+//     })
+// }    
+// console.log('3')
+
+// main()
+
+// let a = "jash"
+// console.log(a.slice(0, 2))
+
+// let str = "stringify";
+// console.log( str.slice(0, 5) );
+// console.log( str.slice(-2, -1) );
+
+// let i = '90' 
+// let angle = parseFloat(i)
+// console.log(angle)
+
+// if (value === '+/-') {
+//     let currentNumber = parseFloat(currentInput);
+
+//     if (!isNaN(currentNumber)) {
+//         currentInput = (currentNumber * -1).toString();  // Toggle the sign
+//         display.value = currentInput;  // Update the display with result
+//     } else {
+//         alert('Please enter a valid number first.');
+//     }
+// }
+
+let expression = '2 * 3'
+const result = Function('return ' + expression)();
+console.log(result)
+
+let name = 'john'
+let str = `Hello ${name}`
+console.log(str)
+
+let str2 = 'Hello ' + name;
+console.log(str2)
