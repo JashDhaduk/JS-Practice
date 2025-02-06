@@ -3,83 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="basic.css">
+    <title>Product Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        .product {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        img {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
 </head>
-<body class="light-mode">
-    <div class="container">
-        <div class="head">
-            <button type="button" class="history-button">
-                <i class="fa-solid fa-clock-rotate-left"></i>
-            </button>
-            <button id="toggle-theme">Theme</button>
-        </div>
-        <!-- <div class="display"> -->
-        <input type="text" placeholder="0" class="display" >
-        <!-- </div> -->
-        <div class="btns">
-            <div class="row">
-                <button class="btn">Sin</button>
-                <button class="btn">Cos</button>
-                <button class="btn">Tan</button>
-                <button class="btn">C</button>
-                <button class="btn">⌫</button>
-            </div>
-            <div class="row">
-                <button class="btn">x<sup>2</sup></button>
-                <button class="btn">π</button>
-                <button class="btn">e</button>
-                <button class="btn">exp</button>
-                <button class="btn">mod</button>
-            </div>
-            <div class="row">
-                <button class="btn">√x</button>
-                <button class="btn">(</button>
-                <button class="btn">)</button>
-                <button class="btn factorial">n!</button>
-                <button class="btn">÷</button>
-            </div>
-            <div class="row">
-                <button class="btn">x<sup>y</sup></button>
-                <button class="btn num">7</button>
-                <button class="btn num">8</button>
-                <button class="btn num">9</button>
-                <button class="btn">x</button>
-            </div>
-            <div class="row">
-                <button class="btn">10<sup>x</sup></button>
-                <button class="btn num">4</button>
-                <button class="btn num">5</button>
-                <button class="btn num">6</button>
-                <button class="btn">-</button>
-            </div>
-            <div class="row">
-                <button class="btn">log</button>
-                <button class="btn num">1</button>
-                <button class="btn num">2</button>
-                <button class="btn num">3</button>
-                <button class="btn">+</button>
-            </div>
-            <div class="row">
-                <button class="btn">ln</button>
-                <button class="btn num"><sup>+</sup>/<sub>-</sub></button>
-                <button class="btn num">0</button>
-                <button class="btn num"><sub>.</sub></button>
-                <button class="btn equal">=</button>
-            </div>
-        </div>
-    </div>
-    <div class="history-panel">
-        <div class="history-header">
-            <h3>History</h3>    
-            <button class="close-history">&times;</button>
-        </div>
-        <div class="history-content"></div>
-    </div>
-    <script type="module" src="basic.js"></script>
+<body>
+    <h2>Product Management System</h2>
+    <form id="productForm">
+        <input type="text" id="productId" placeholder="Product ID" required>
+        <input type="text" id="productName" placeholder="Product Name" required>
+        <input type="number" id="productPrice" placeholder="Price" required>
+        <input type="text" id="productDescription" placeholder="Description" required>
+        <input type="url" id="productImage" placeholder="Image URL" required>
+        <button type="submit">Add / Update Product</button>
+    </form>
+    <br>
+    <input type="text" id="filterId" placeholder="Filter by Product ID">
+    <select id="sortBy">
+        <option value="">Sort by</option>
+        <option value="id">Product ID</option>
+        <option value="name">Product Name</option>
+        <option value="price">Price</option>
+    </select>
+    <div id="productList"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const productForm = document.getElementById("productForm");
+            const productList = document.getElementById("productList");
+            const filterInput = document.getElementById("filterId");
+            const sortSelect = document.getElementById("sortBy");
+
+            let products = JSON.parse(localStorage.getItem("products")) || [];
+            
+            function saveProducts() {
+                localStorage.setItem("products", JSON.stringify(products));
+            }
+
+            function renderProducts(filter = "", sortBy = "") {
+                productList.innerHTML = "";
+                let filteredProducts = products.filter(p => p.id.includes(filter));
+                
+                if (sortBy) {
+                    filteredProducts.sort((a, b) => {
+                        if (sortBy === "id") return a.id.localeCompare(b.id);
+                        if (sortBy === "name") return a.name.localeCompare(b.name);
+                        if (sortBy === "price") return a.price - b.price;
+                    });
+                }
+                
+                filteredProducts.forEach(product => {
+                    const div = document.createElement("div");
+                    div.className = "product";
+                    div.innerHTML = `
+                        <p><strong>ID:</strong> ${product.id}</p>
+                        <p><strong>Name:</strong> ${product.name}</p>
+                        <p><strong>Price:</strong> $${product.price}</p>
+                        <p>${product.description}</p>
+                        <img src="${product.image}" alt="${product.name}" style="width:100px;height:100px;">
+                        <button onclick="editProduct('${product.id}')">Edit</button>
+                        <button onclick="deleteProduct('${product.id}')">Delete</button>
+                    `;
+                    productList.appendChild(div);
+                });
+            }
+
+            window.deleteProduct = function (id) {
+                products = products.filter(p => p.id !== id);
+                saveProducts();
+                renderProducts();
+            }
+
+            window.editProduct = function (id) {
+                const product = products.find(p => p.id === id);
+                if (product) {
+                    document.getElementById("productId").value = product.id;
+                    document.getElementById("productName").value = product.name;
+                    document.getElementById("productPrice").value = product.price;
+                    document.getElementById("productDescription").value = product.description;
+                    document.getElementById("productImage").value = product.image;
+                }
+            }
+
+            productForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+                const id = document.getElementById("productId").value.trim();
+                const name = document.getElementById("productName").value.trim();
+                const price = parseFloat(document.getElementById("productPrice").value.trim());
+                const description = document.getElementById("productDescription").value.trim();
+                const image = document.getElementById("productImage").value.trim();
+                
+                if (!id || !name || isNaN(price) || price <= 0 || !description || !image) {
+                    alert("Please fill all fields correctly.");
+                    return;
+                }
+                
+                const existingIndex = products.findIndex(p => p.id === id);
+                if (existingIndex !== -1) {
+                    products[existingIndex] = { id, name, price, description, image };
+                } else {
+                    products.push({ id, name, price, description, image });
+                }
+                
+                saveProducts();
+                renderProducts();
+                productForm.reset();
+            });
+
+            filterInput.addEventListener("input", () => renderProducts(filterInput.value, sortSelect.value));
+            sortSelect.addEventListener("change", () => renderProducts(filterInput.value, sortSelect.value));
+
+            renderProducts();
+        });
+    </script>
 </body>
 </html>
-
