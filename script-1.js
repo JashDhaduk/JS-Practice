@@ -212,13 +212,29 @@
 //     }
 // }
 
-let expression = '2 * 3'
-const result = Function('return ' + expression)();
-console.log(result)
+// let expression = '25346'
+// const result = Function('return ' + expression)();
+// console.log(result)
 
-let name = 'john'
-let str = `Hello ${name}`
-console.log(str)
+// let name = 'john'
+// let str = `Hello ${name}`
+// console.log(str)
 
-let str2 = 'Hello ' + name;
-console.log(str2)
+// let str2 = 'Hello ' + name;
+// console.log(str2)
+
+// let a = expression.split('5')
+// console.log(a)
+
+let input = '5abc'; 
+const num = parseInt(input)
+if(isNaN(num) || num < 0){
+    console.log('error')
+}   
+else{
+    let fact = 1;
+    for(let i=1; i<=num; i++){
+        fact *= i;
+    }
+    console.log(fact)
+}

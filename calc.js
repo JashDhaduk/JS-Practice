@@ -52,3 +52,19 @@ export function addToHistory(expression, result) {
 
 // Call loadHistory on page load to retrieve any stored history
 window.addEventListener('DOMContentLoaded', loadHistory);
+
+
+
+export function addToHistory(expression, result) {
+    calculationHistory.unshift({ expression, result });
+    if (calculationHistory.length > 10) calculationHistory.pop();
+
+    historyContent.innerHTML = calculationHistory
+        .map(entry => `
+                <div class="history-entry">
+                    <div class="history-expression">${entry.expression}</div>
+                    <div class="history-result">= ${entry.result}</div>
+                </div>
+            `)
+        .join('');
+}
