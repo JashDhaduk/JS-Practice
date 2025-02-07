@@ -3,131 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Management</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
-        }
-        .product {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin: 10px 0;
-        }
-        img {
-            display: block;
-            margin-top: 10px;
-        }
-    </style>
+    <title>CRUD</title>
+    <link rel="stylesheet" href="basic.css">
 </head>
 <body>
-    <h2>Product Management System</h2>
-    <form id="productForm">
-        <input type="text" id="productId" placeholder="Product ID" required>
-        <input type="text" id="productName" placeholder="Product Name" required>
-        <input type="number" id="productPrice" placeholder="Price" required>
-        <input type="text" id="productDescription" placeholder="Description" required>
-        <input type="url" id="productImage" placeholder="Image URL" required>
-        <button type="submit">Add / Update Product</button>
-    </form>
-    <br>
-    <input type="text" id="filterId" placeholder="Filter by Product ID">
-    <select id="sortBy">
-        <option value="">Sort by</option>
-        <option value="id">Product ID</option>
-        <option value="name">Product Name</option>
-        <option value="price">Price</option>
-    </select>
-    <div id="productList"></div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const productForm = document.getElementById("productForm");
-            const productList = document.getElementById("productList");
-            const filterInput = document.getElementById("filterId");
-            const sortSelect = document.getElementById("sortBy");
+    <div class="container">
+        <header>
+            <div class="head_1">
+                <div class="headName">
+                    Product Management System
+                </div>
+                <div class="filter">
+                    <label for="search">Search:</label>
+                    <input type="search" id="search" placeholder="Filter by productID">
+                </div>
+            </div>
+            <div class="head_2">
+                <!-- <div class="addProduct"> -->
+                    <button class="addProduct">New Product</button>
+                <!-- </div> -->
+                <!-- <div class="sortBy"> -->
+                    <select name="" id="sortBy">
+                        <option value="">Sort By:</option>
+                        <option value="ID">Product ID</option>
+                        <option value="Name">Product Name</option>
+                        <option value="Price">Product Price</option>
+                    </select>
+                <!-- </div> -->
+            </div>
+        </header>
+        <table>
+            <thead class="tableHeading">
+                <tr>
+                    <th class="tableHead_1">Product Image</th>
+                    <th class="tableHead_2">Product ID</th>
+                    <th class="tableHead_3">Product Name</th>
+                    <th class="tableHead_4">Product Price</th>
+                    <th>Product Description</th>
+                </tr>
+            </thead>
+            <tbody class="productInfo">
+                <!-- <tr>
+                    <td class="tableData_1"><img src="images.png" alt="" height="40" width="40"></td>
+                    <td class="tableData_2">PMS12345</td>
+                    <td class="tableData_3">iphone</td>
+                    <td class="tableData_4">$2000</td>
+                    <td>Smartphone</td>
+                </tr>
+            </tbody>
+            <tbody class="productInfo">
+                <tr>
+                    <td class="tableData_1"><img src="images.png" alt="" height="40" width="40"></td>
+                    <td class="tableData_2">PMS12345</td>
+                    <td class="tableData_3">iphone</td>
+                    <td class="tableData_4">$2000</td>
+                    <td>Smartphone</td>
+                </tr> -->
+            </tbody>
+        </table>
+    </div>
 
-            let products = JSON.parse(localStorage.getItem("products")) || [];
-            
-            function saveProducts() {
-                localStorage.setItem("products", JSON.stringify(products));
-            }
+    <div class="popup">
+        <div class="popupContainer">
 
-            function renderProducts(filter = "", sortBy = "") {
-                productList.innerHTML = "";
-                let filteredProducts = products.filter(p => p.id.includes(filter));
-                
-                if (sortBy) {
-                    filteredProducts.sort((a, b) => {
-                        if (sortBy === "id") return a.id.localeCompare(b.id);
-                        if (sortBy === "name") return a.name.localeCompare(b.name);
-                        if (sortBy === "price") return a.price - b.price;
-                    });
-                }
-                
-                filteredProducts.forEach(product => {
-                    const div = document.createElement("div");
-                    div.className = "product";
-                    div.innerHTML = `
-                        <p><strong>ID:</strong> ${product.id}</p>
-                        <p><strong>Name:</strong> ${product.name}</p>
-                        <p><strong>Price:</strong> $${product.price}</p>
-                        <p>${product.description}</p>
-                        <img src="${product.image}" alt="${product.name}" style="width:100px;height:100px;">
-                        <button onclick="editProduct('${product.id}')">Edit</button>
-                        <button onclick="deleteProduct('${product.id}')">Delete</button>
-                    `;
-                    productList.appendChild(div);
-                });
-            }
-
-            window.deleteProduct = function (id) {
-                products = products.filter(p => p.id !== id);
-                saveProducts();
-                renderProducts();
-            }
-
-            window.editProduct = function (id) {
-                const product = products.find(p => p.id === id);
-                if (product) {
-                    document.getElementById("productId").value = product.id;
-                    document.getElementById("productName").value = product.name;
-                    document.getElementById("productPrice").value = product.price;
-                    document.getElementById("productDescription").value = product.description;
-                    document.getElementById("productImage").value = product.image;
-                }
-            }
-
-            productForm.addEventListener("submit", function (e) {
-                e.preventDefault();
-                const id = document.getElementById("productId").value.trim();
-                const name = document.getElementById("productName").value.trim();
-                const price = parseFloat(document.getElementById("productPrice").value.trim());
-                const description = document.getElementById("productDescription").value.trim();
-                const image = document.getElementById("productImage").value.trim();
-                
-                if (!id || !name || isNaN(price) || price <= 0 || !description || !image) {
-                    alert("Please fill all fields correctly.");
-                    return;
-                }
-                
-                const existingIndex = products.findIndex(p => p.id === id);
-                if (existingIndex !== -1) {
-                    products[existingIndex] = { id, name, price, description, image };
-                } else {
-                    products.push({ id, name, price, description, image });
-                }
-                
-                saveProducts();
-                renderProducts();
-                productForm.reset();
-            });
-
-            filterInput.addEventListener("input", () => renderProducts(filterInput.value, sortSelect.value));
-            sortSelect.addEventListener("change", () => renderProducts(filterInput.value, sortSelect.value));
-
-            renderProducts();
-        });
-    </script>
+            <header class="popupHeader">
+                <h2 class="title">Fill the Form</h2>
+                <button class="closeBtn">&times;</button>
+            </header>
+            <div class="details">
+                <form action="#" id="myForm">
+                    <div class="imgholder">
+                        <label for="uploadimg" class="upload">
+                            <input type="file" name="" id="uploadimg" class="picture">
+                            <i class="fa-solid fa-plus"></i>
+                        </label>
+                        <img src="images.png" alt="" width="150" height="150" class="img">
+                    </div>
+    
+                    <div class="inputFieldContainer">
+    
+                        <div class="productID">
+                            <!-- <div class="form_control"> -->
+                                <label for="pID">Product ID:</label>
+                                <input type="text" name="" id="pID" required>
+                            <!-- </div> -->
+                        </div>
+    
+                        <div class="productName">
+                            <!-- <div class="form_control"> -->
+                                <label for="pName">Product Name:</label>
+                                <input type="text" name="" id="pName" required>
+                            <!-- </div> -->
+                        </div>
+    
+                        <div class="productPrice">
+                            <!-- <div class="form_control"> -->
+                                <label for="pPrice">Product Price:</label>
+                                <input type="number" name="" id="pPrice" required>
+                            <!-- </div> -->
+                        </div>
+    
+                        <div class="productDescription">
+                            <label for="pDes">Product Description:</label>
+                            <input type="text" name="" id="pDes" required>
+                        </div>
+                    </div>
+                </form>
+             </div>
+    
+             <footer class="popupFooter">
+                <button form="myForm" class="submitBtn">Submit</button>
+             </footer>
+        </div>
+    </div>
+    <script src="basic.js"></script>
 </body>
 </html>

@@ -1,434 +1,99 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculator</title>
-  <link rel="stylesheet" href="calc.css">
-</head>
-<body class="light-mode">
-  <div class="theme-toggle">
-    <button id="toggle-theme">Toggle Theme</button>
-  </div>
-  <div class="calculator">
-    <div class="display">0</div>
-    <div class="buttons">
-
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
-      <button>+</button>
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button>-</button>
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>*</button>
-      <button>0</button>
-      <button>.</button>
-      <button>=</button>
-      <button>/</button>
-    </div>
-  </div>
-  <script src="calc.js"></script>
-</body>
-</html>
-
-<!-- Build a Scientific Calculator
-Create a responsive HTML UI that includes buttons for all basic arithmetic operations and scientific functions like:
-Basic: +, -, *, /, %, =
-Advanced: sin(x), cos(x), tan(x), log(x), sqrt(x), x^y, π, e, etc.
-Include a display area to show inputs and results.
-Implement Functionality in JavaScript
-Use the following advanced JS concepts to design the calculator:
-Closures: Use closures for encapsulating private variables and methods for calculation history.
-Prototype: Implement basic operations using prototype methods.
-Classes: Create a Calculator class to encapsulate all scientific and basic operations.
-this Keyword: Demonstrate correct usage of this in event handlers and class methods.
-Modularity: Split your code into multiple modules (e.g., one for utility functions, another for the main logic).
-Error Handling: Ensure proper handling of invalid inputs or calculations (e.g., division by zero, invalid operations).
-Optional Add-ons (Bonus):
-Add a history feature that allows users to view their recent calculations.
-Support keyboard input for calculator operations.
-Implement themes (e.g., light/dark mode) using CSS and JS.
-Use localStorage/sessionStorage to persist the calculation history. -->
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scientific Calculator</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    body.light {
-      background-color: #ffffff;
-      color: #000000;
-    }
-    body.dark {
-      background-color: #1e293b;
-      color: #ffffff;
-    }
-  </style>
-</head>
-<body class="light flex flex-col items-center min-h-screen p-4">
-  <div class="calculator max-w-lg w-full bg-gray-100 dark:bg-gray-800 p-4 rounded-2xl shadow-md">
-    <div class="flex justify-between mb-4">
-      <h1 class="text-xl font-bold">Scientific Calculator</h1>
-      <button id="themeToggle" class="bg-blue-500 text-white px-4 py-2 rounded">Toggle Theme</button>
-    </div>
-    <div class="display bg-white dark:bg-gray-700 p-4 rounded text-right text-2xl mb-4 shadow-inner" id="display"></div>
-    <div class="grid grid-cols-4 gap-2">
-    
-      <button class="btn">7</button>
-      <button class="btn">8</button>
-      <button class="btn">9</button>
-      <button class="btn operator">/</button>
-      <button class="btn">4</button>
-      <button class="btn">5</button>
-      <button class="btn">6</button>
-      <button class="btn operator">*</button>
-      <button class="btn">1</button>
-      <button class="btn">2</button>
-      <button class="btn">3</button>
-      <button class="btn operator">-</button>
-      <button class="btn">0</button>
-      <button class="btn">.</button>
-      <button class="btn operator">+</button>
-      <button id="equals" class="btn bg-green-500 text-white">=</button>
-      <button id="clear" class="btn bg-red-500 text-white">C</button>
-      <button class="btn operator">%</button>
-      <button class="btn operator">π</button>
-      <button class="btn operator">e</button>
-      <button class="btn operator">sin</button>
-      <button class="btn operator">cos</button>
-      <button class="btn operator">tan</button>
-      <button class="btn operator">log</button>
-      <button class="btn operator">√</button>
-      <button class="btn operator">x^y</button>
-      <button id="history" class="btn bg-purple-500 text-white">History</button>
-    </div>
-    <div id="historyPanel" class="mt-4 hidden bg-gray-200 dark:bg-gray-600 p-4 rounded"></div>
-  </div>
-  <script type="module">
-    // Utility Module
-    const utils = (() => {
-      const isValidNumber = (value) => !isNaN(value) && isFinite(value);
-      const factorial = (n) => (n <= 1 ? 1 : n * factorial(n - 1));
-      return { isValidNumber, factorial };
-    })();
-
-    // Calculator Class
-    class Calculator {
-      constructor() {
-        this.currentValue = '';
-        this.history = [];
-        this.displayElement = document.getElementById('display');
-        this.updateDisplay();
-      }
-
-      updateDisplay() {
-        this.displayElement.textContent = this.currentValue || '0';
-      }
-
-      appendNumber(number) {
-        this.currentValue += number;
-        this.updateDisplay();
-      }
-
-      chooseOperation(operation) {
-        if (!this.currentValue) return;
-        this.currentValue += ` ${operation} `;
-        this.updateDisplay();
-      }
-
-      calculate() {
-        try {
-          let result = eval(this.currentValue.replace('π', Math.PI).replace('e', Math.E));
-          this.history.push(`${this.currentValue} = ${result}`);
-          this.currentValue = result.toString();
-        } catch (error) {
-          this.currentValue = 'Error';
-        }
-        this.updateDisplay();
-      }
-
-      clear() {
-        this.currentValue = '';
-        this.updateDisplay();
-      }
-
-      showHistory() {
-        const historyPanel = document.getElementById('historyPanel');
-        historyPanel.innerHTML = this.history.length
-          ? this.history.map((item) => `<div>${item}</div>`).join('')
-          : '<div>No history</div>';
-        historyPanel.classList.toggle('hidden');
-      }
-    }
-
-    // Attach Event Listeners
-    const calculator = new Calculator();
-
-    document.querySelectorAll('.btn').forEach((button) => {
-      button.addEventListener('click', (e) => {
-        const value = e.target.textContent;
-        if (!isNaN(value) || value === '.') {
-          calculator.appendNumber(value);
-        } else if (['+', '-', '*', '/', '%', 'x^y'].includes(value)) {
-          calculator.chooseOperation(value === 'x^y' ? '**' : value);
-        } else if (value === '=') {
-          calculator.calculate();
-        }
-      });
-    });
-
-    document.getElementById('clear').addEventListener('click', () => calculator.clear());
-    document.getElementById('history').addEventListener('click', () => calculator.showHistory());
-
-    document.getElementById('themeToggle').addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      document.body.classList.toggle('light');
-    });
-  </script>
-</body>
-</html> -->
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nemorphism calci</title>
-    <link rel="stylesheet" type="text/css"
-        href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>CRUD</title>
+    <link rel="stylesheet" href="calc.css">
 </head>
-<style>
-    body {
-        padding: 0;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        user-select: none;
-        background: #ecf0f3;
-    }
-
-    .container {
-        margin-left: 1.8em;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 13px 13px 20px #cbced1,
-            -13px -13px 20px #ffffff;
-    }
-
-    .content {
-        width: 100%;
-        margin-top: 1.7em;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
-
-    .row button {
-        width: 60px;
-        height: 30px;
-        font-size: 16px;
-        border: none;
-        outline: none;
-        margin: 5px;
-        border-radius: 4px;
-        transition: .1s;
-        box-shadow: 5px 5px 8px #00000020,
-            -5px -5px 8px #ffff;
-    }
-
-    .row button:hover {
-        box-shadow: inset 5px 5px 8px rgba(16, 16, 16, .1),
-            inset -5px -5px 8px #fff;
-        background: #fff;
-    }
-
-    .display #screen {
-        margin-bottom: .5em;
-        width: auto;
-        height: 70px;
-        font-size: 35px;
-        outline: none;
-        border: none;
-        text-align: right;
-        padding-right: .5em;
-        background: #ecf0f3;
-        border-radius: 6px;
-        box-shadow: inset 8px 8px 8px #cbced1,
-            inset -8px -8px 8px #ffffff;
-    }
-
-    #eval {
-        background: #33ccff;
-        color: #fff;
-        box-shadow: inset 5px 5px 8px #66d9ff,
-            inset -5px -5px 8px #00ace6;
-    }
-
-    #eval:hover {
-        box-shadow: inset 5px 5px 8px #00ace6,
-            inset -5px -5px 8px #00ace6;
-    }
-
-    #ac {
-        background: #33cc33;
-        color: #fff;
-    }
-
-    #ac:hover {
-        box-shadow: inset 5px 5px 8px #2eb82e,
-            inset -5px -5px 8px #33cc33;
-    }
-
-    #ce {
-        background: #ff3399;
-        color: #fff;
-    }
-
-    #ce:hover {
-        box-shadow: inset 5px 5px 8px #e60073,
-            inset -5px -5px 8px #ff3399;
-    }
-</style>
-
 <body>
-
     <div class="container">
-        <div class="display">
-            <input id="screen" type="text" placeholder="0">
-        </div>
+        <header>
+            <div class="head_1">
+                <div class="headName">
+                    Product Management System
+                </div>
+                <div class="filter">
+                    <label for="search">Search:</label>
+                    <input type="search" id="search" placeholder="Filter by productID">
+                </div>
+            </div>
+            <div class="head_2">
+                    <button class="addProduct">New Product</button>
+                    <select name="" id="sortBy">
+                        <option value="">Sort By:</option>
+                        <option value="ID">Product ID</option>
+                        <option value="Name">Product Name</option>
+                        <option value="Price">Product Price</option>
+                    </select>
+            </div>
+        </header>
 
-        <div class="btns">
-            <div class="row">
-                <button id="ce" onclick="backspc()">CE</button>
-                <button onclick="fact()">x!</button>
-                <button class="btn">(</button>
-                <button class="btn">)</button>
-                <button class="btn">%</button>
-                <button id="ac" onclick="screen.value=''">AC</button>
+        <!-- Table for displaying product details -->
+        <table>
+            <thead class="tableHeading">
+                <tr>
+                    <th class="tableHead_1">Product Image</th>
+                    <th class="tableHead_2">Product ID</th>
+                    <th class="tableHead_3">Product Name</th>
+                    <th class="tableHead_4">Product Price</th>
+                    <th>Product Description</th>
+                </tr>
+            </thead>
+            <tbody class="productInfo">
+                <!-- Product rows will be added here dynamically by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Popup Form -->
+    <div class="popup">
+        <div class="popupContainer">
+            <header>
+                <h2 class="title">Fill the Form</h2>
+                <button class="closeBtn">&times;</button>
+            </header>
+            <div class="details">
+                <form action="#" id="myForm">
+                    <div class="imgholder">
+                        <label for="uploadimg" class="upload">
+                            <input type="file" name="" id="uploadimg" class="picture">
+                            <i class="fa-solid fa-plus"></i>
+                        </label>
+                        <img src="images.png" alt="" width="150" height="150" class="img">
+                    </div>
+
+                    <div class="inputFieldContainer">
+
+                        <div class="productID">
+                            <label for="pID">Product ID:</label>
+                            <input type="text" name="" id="pID" required>
+                        </div>
+
+                        <div class="productName">
+                            <label for="pName">Product Name:</label>
+                            <input type="text" name="" id="pName" required>
+                        </div>
+
+                        <div class="productPrice">
+                            <label for="pPrice">Product Price:</label>
+                            <input type="number" name="" id="pPrice" required>
+                        </div>
+
+                        <div class="productDescription">
+                            <label for="pDes">Product Description:</label>
+                            <input type="text" name="" id="pDes" required>
+                        </div>
+                    </div>
+                </form>
             </div>
 
-            <div class="row">
-                <button onclick="sin()">sin</button>
-                <button onclick="pi()">π</button>
-                <button class="btn">7</button>
-                <button class="btn">8</button>
-                <button class="btn">9</button>
-                <button class="btn">÷</button>
-            </div>
-
-            <div class="row">
-                <button onclick="cos()">cos</button>
-                <button onclick="log()">log</button>
-                <button class="btn">4</button>
-                <button class="btn">5</button>
-                <button class="btn">6</button>
-                <button class="btn">×</button>
-            </div>
-
-            <div class="row">
-                <button onclick="tan()">tan</button>
-                <button onclick="sqrt()">√</button>
-                <button class="btn">1</button>
-                <button class="btn">2</button>
-                <button class="btn">3</button>
-                <button class="btn">-</button>
-            </div>
-
-            <div class="row">
-                <button onclick="e()">e</button>
-                <button onclick="pow()">x <span style="position: relative; bottom: .4em; right: .1em;">y</span>
-                </button>
-                <button class="btn">0</button>
-                <button class="btn">.</button>
-                <button id="eval" onclick="screen.value=eval(screen.value)">=</button>
-                <button class="btn">+</button>
-            </div>
+            <footer class="popupFooter">
+                <button form="myForm" class="submitBtn">Submit</button>
+            </footer>
         </div>
     </div>
+
+    <script src="calc.js"></script>
 </body>
-<script>
-    var screen = document.querySelector('#screen');
-    var btn = document.querySelectorAll('.btn');
-
-    /*============ For getting the value of btn, Here we use for loop ============*/
-    for (item of btn) {
-        item.addEventListener('click', (e) => {
-            btntext = e.target.innerText;
-
-            if (btntext == '×') {
-                btntext = '*';
-            }
-            
-            if (btntext == '÷') {
-                btntext = '/';
-            }
-            screen.value += btntext;
-        });
-    }
-
-    function sin() {
-        screen.value = Math.sin(screen.value);
-    }
-
-    function cos() {
-        screen.value = Math.cos(screen.value);
-    }
-
-    function tan() {
-        screen.value = Math.tan(screen.value);
-    }
-
-    function pow() {
-        screen.value = Math.pow(screen.value, 2);
-    }
-
-    function sqrt() {
-        screen.value = Math.sqrt(screen.value, 2);
-    }
-
-    function log() {
-        screen.value = Math.log(screen.value);
-    }
-
-    function pi() {
-        screen.value = 3.14159265359;
-    }
-
-    function e() {
-        screen.value = 2.71828182846;
-    }
-
-    function fact() {
-        var i, num, f;
-        f = 1
-        num = screen.value;
-        for (i = 1; i <= num; i++) {
-            f = f * i;
-        }
-
-        i = i - 1;
-
-        screen.value = f;
-    }
-
-    function backspc() {
-        screen.value = screen.value.substr(0, screen.value.length - 1);
-    }
-</script>
-
-</html> -->
+</html>
