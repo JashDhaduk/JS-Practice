@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD</title>
     <link rel="stylesheet" href="basic.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" 
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" 
+        referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="container">
@@ -15,7 +18,7 @@
                 </div>
                 <div class="filter">
                     <label for="search">Search:</label>
-                    <input type="search" id="search" placeholder="Filter by productID">
+                    <input type="text" id="search" placeholder="Filter by productID">
                 </div>
             </div>
             <div class="head_2">
@@ -39,28 +42,31 @@
                     <th class="tableHead_2">Product ID</th>
                     <th class="tableHead_3">Product Name</th>
                     <th class="tableHead_4">Product Price</th>
-                    <th>Product Description</th>
+                    <th class="tableHead_5">Product Description</th>
                 </tr>
             </thead>
             <tbody class="productInfo">
-                <!-- <tr>
+                 <tr>
                     <td class="tableData_1"><img src="images.png" alt="" height="40" width="40"></td>
                     <td class="tableData_2">PMS12345</td>
                     <td class="tableData_3">iphone</td>
                     <td class="tableData_4">$2000</td>
-                    <td>Smartphone</td>
+                    <td class="tableData">Smartphone</td>
                 </tr>
             </tbody>
-            <tbody class="productInfo">
-                <tr>
-                    <td class="tableData_1"><img src="images.png" alt="" height="40" width="40"></td>
-                    <td class="tableData_2">PMS12345</td>
-                    <td class="tableData_3">iphone</td>
-                    <td class="tableData_4">$2000</td>
-                    <td>Smartphone</td>
-                </tr> -->
-            </tbody>
         </table>
+        <footer>
+            <span class="showEntries">Showing 1 to 10 of 50 entries</span>
+            <div class="pagination">
+                <!-- <button>Prev</button>
+                <button class="active">1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button>5</button>
+                <button>Next</button> -->
+            </div>  
+        </footer>
     </div>
 
     <div class="popup">
@@ -72,12 +78,12 @@
             </header>
             <div class="details">
                 <form action="#" id="myForm">
-                    <div class="imgholder">
-                        <label for="uploadimg" class="upload">
-                            <input type="file" name="" id="uploadimg" class="picture">
-                            <i class="fa-solid fa-plus"></i>
+                    <div class="imgholder">             
+                        <label for="uploadimg" class="upload" id="imageUploadLabel">
+                            <input type="file" name="uploadimg" id="uploadimg" class="picture" />
+                            <!-- <i class="fa-solid fa-plus"></i> Choose Image -->
                         </label>
-                        <img src="images.png" alt="" width="150" height="150" class="img">
+                        <img src="images.png" alt="Product Image" width="150" height="150" class="img" id="imagePreview"/>
                     </div>
     
                     <div class="inputFieldContainer">
@@ -116,6 +122,6 @@
              </footer>
         </div>
     </div>
-    <script src="basic.js"></script>
+    <script src="calc.js"></script>
 </body>
 </html>

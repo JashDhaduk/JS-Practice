@@ -47,52 +47,55 @@
     </div>
 
     <!-- Popup Form -->
-    <div class="popup">
-        <div class="popupContainer">
-            <header>
-                <h2 class="title">Fill the Form</h2>
-                <button class="closeBtn">&times;</button>
-            </header>
-            <div class="details">
-                <form action="#" id="myForm">
-                    <div class="imgholder">
-                        <label for="uploadimg" class="upload">
-                            <input type="file" name="" id="uploadimg" class="picture">
-                            <i class="fa-solid fa-plus"></i>
-                        </label>
-                        <img src="images.png" alt="" width="150" height="150" class="img">
+    <div class="popupContainer">
+        <header class="popupHeader">
+            <h2 class="title">Fill the Form</h2>
+            <button class="closeBtn">&times;</button>
+        </header>
+        <div class="details">
+            <form action="#" id="myForm">
+                <div class="imgholder">
+                    <!-- Image preview area (clickable to choose a file or input URL) -->
+                    <div id="imageClickArea" class="imageClickArea">
+                        <img src="images.png" alt="Product Image" width="150" height="150" class="img" id="imagePreview" />
+                        <p id="imageText">Click to choose an image</p>
                     </div>
-
-                    <div class="inputFieldContainer">
-
-                        <div class="productID">
-                            <label for="pID">Product ID:</label>
-                            <input type="text" name="" id="pID" required>
-                        </div>
-
-                        <div class="productName">
-                            <label for="pName">Product Name:</label>
-                            <input type="text" name="" id="pName" required>
-                        </div>
-
-                        <div class="productPrice">
-                            <label for="pPrice">Product Price:</label>
-                            <input type="number" name="" id="pPrice" required>
-                        </div>
-
-                        <div class="productDescription">
-                            <label for="pDes">Product Description:</label>
-                            <input type="text" name="" id="pDes" required>
-                        </div>
+    
+                    <!-- Input for URL -->
+                    <input type="text" id="imageURL" placeholder="Or enter image URL" class="imageURL" style="display: none;" />
+    
+                    <!-- Hidden file input (activated when clicking the image) -->
+                    <input type="file" name="uploadimg" id="uploadimg" class="picture" style="display: none;" />
+                </div>
+    
+                <div class="inputFieldContainer">
+                    <div class="productID">
+                        <label for="pID">Product ID:</label>
+                        <input type="text" name="pID" id="pID" required>
                     </div>
-                </form>
-            </div>
-
-            <footer class="popupFooter">
-                <button form="myForm" class="submitBtn">Submit</button>
-            </footer>
+    
+                    <div class="productName">
+                        <label for="pName">Product Name:</label>
+                        <input type="text" name="pName" id="pName" required>
+                    </div>
+    
+                    <div class="productPrice">
+                        <label for="pPrice">Product Price:</label>
+                        <input type="number" name="pPrice" id="pPrice" required>
+                    </div>
+    
+                    <div class="productDescription">
+                        <label for="pDes">Product Description:</label>
+                        <input type="text" name="pDes" id="pDes" required>
+                    </div>
+                </div>
+            </form>
         </div>
-    </div>
+    
+        <footer class="popupFooter">
+            <button form="myForm" class="submitBtn" id="submitBtn" disabled>Submit</button>
+        </footer>
+    </div>       
 
     <script src="calc.js"></script>
 </body>

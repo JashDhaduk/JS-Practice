@@ -90,7 +90,7 @@ table {
     /* background-color: red; */
     width: 100%;
     padding-top: 15px;
-    /* border-collapse: collapse; */
+    border-collapse: collapse;
     /* table-layout: fixed; */
 }
 th, td{
@@ -110,11 +110,39 @@ td{
 .tableHead_1, .tableData_1{
     width : 12%
 }
-.tableHead_4, .tableData_4{
+.tableHead_2, .tableHead_4, .tableData_4, .tableData_2 {
     width : 15%
 }
-.tableHead_2, .tableHead_3, .tableData_2, .tableData_3{
+.tableHead_3,.tableData_3{
     width : 20%
+}
+.tableHead_5,.tableData_5{
+    width : 25%
+}
+
+/* footer */
+footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.showEntries{
+    color: var(--dark8);
+}
+
+.pagination{
+    background-color: var(--dark5);
+}
+
+.prev-btn, .next-btn, .active{
+    background-color: var(--dark5);
+    color: var(--dark8);
+    padding: 8px 16px;
+    border: solid 1px var(--dark7);
+    cursor: pointer;
+    font-size: 0.8rem;
 }
 
 .popup {
@@ -124,7 +152,7 @@ td{
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
-    display: none;
+    display: none;  
     align-items: center;
     justify-content: center;
     z-index: 10;
@@ -143,6 +171,7 @@ td{
     border-radius: 10px;
     width: 400px;
     max-width: 90%;
+    /* display: flex; */
 }
 
 /* header {
@@ -173,6 +202,36 @@ td{
 
 .details {
     margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* #myForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+.imgholder{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.img{
+    margin: 10px;
+}
+
+.upload{
+    width: 100%;
+}
+
+.productInfo td {
+    word-wrap: break-word; 
+    word-break: break-word; 
+    white-space: normal;
 }
 
 .inputFieldContainer {
@@ -195,9 +254,31 @@ input[type="file"] {
     border: 1px solid var(--dark5);
 }
 
+.popup.readOnly .inputFieldContainer {
+    color: var(--dark8);
+}
+
+.popup.readOnly input[type="text"],
+.popup.readOnly input[type="number"],
+.popup.readOnly input[type="file"] {
+    background-color: var(--dark4); 
+    color: var(--dark8);
+    border-color: var(--dark7); 
+}
+
+
 input[type="file"] {
     padding: 5px;
     cursor: pointer;
+}
+
+.readBtn, .editBtn, .deleteBtn{
+    font-size: 1rem;
+    padding: 9px;
+    margin: 4px;
+    border: solid 2px var(--dark7);
+    background-color: var(--dark6);
+    color: var(--dark8);
 }
 
 .submitBtn {
